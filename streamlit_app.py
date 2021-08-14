@@ -1,15 +1,19 @@
+import os
 import numpy as np
 from PIL import Image
 import streamlit as st
 from src.inference import inference
+from src.get_data import download_and_unzip
+
+
+MODEL_URL = "https://github.com/stephenllh/image-captioning-transformer/releases/latest/download/model.zip"
+
+if not os.path.exists("./model.ckpt"):
+    download_and_unzip(MODEL_URL, extract_to="./")
 
 
 st.title("Image captioning with Transformer")
-# st.info("Use transformer to give a caption to uploaded images.")
-
 uploaded_file = st.file_uploader("Upload an image.", type=["png", "jpg"])
-
-ckpt_path = "models/best.ckpt"  # TODO: upload model to github, then get URL.
 
 
 if __name__ == "__main__":
@@ -18,7 +22,7 @@ if __name__ == "__main__":
         st.image(image, use_column_width=True)
 
         image = np.array(image)
-        predicted_caption_list = inference(image, ckpt_path)
+        predicted_caption_list = inference(image, "model.ckpt")
 
         predicted_caption = ""
         for i, s in enumerate(predicted_caption_list):
@@ -30,6 +34,4 @@ if __name__ == "__main__":
                 predicted_caption_list = predicted_caption_list[:i]
                 break
         st.write("Caption: ", predicted_caption.capitalize())
-        print(predicted_caption_list)
 
-        st.selectbox("Select option", options=predicted_caption_list)
