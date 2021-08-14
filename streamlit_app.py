@@ -2,14 +2,16 @@ import numpy as np
 from PIL import Image
 import streamlit as st
 from src.inference import inference
+from src.utils import download_and_unzip
 
 
 st.title("Image captioning with Transformer")
-# st.info("Use transformer to give a caption to uploaded images.")
 
 uploaded_file = st.file_uploader("Upload an image.", type=["png", "jpg"])
 
-ckpt_path = "models/best.ckpt"  # TODO: upload model to github, then get URL.
+MODEL_URL = "https://github.com/stephenllh/image-captioning-transformer/releases/latest/download/model.zip"
+download_and_unzip(MODEL_URL)
+ckpt_path = "models.ckpt"
 
 
 if __name__ == "__main__":
