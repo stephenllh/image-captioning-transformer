@@ -7,3 +7,4 @@ albumentations==1.0.1
 wandb==0.10.30
 PyYAML==5.4.1
 torchtext==0.10.0
+streamlit==0.84.2
