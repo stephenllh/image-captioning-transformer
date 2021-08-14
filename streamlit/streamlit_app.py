@@ -6,7 +6,7 @@ from src.get_data import download_and_unzip
 
 
 MODEL_URL = "https://github.com/stephenllh/image-captioning-transformer/releases/latest/download/model.zip"
-download_and_unzip(MODEL_URL)
+download_and_unzip(MODEL_URL, extract_to="./")
 ckpt_path = "models.ckpt"
 
 st.title("Image captioning with Transformer")
