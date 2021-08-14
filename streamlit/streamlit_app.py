@@ -5,13 +5,12 @@ from src.inference import inference
 from src.get_data import download_and_unzip
 
 
-st.title("Image captioning with Transformer")
-
-uploaded_file = st.file_uploader("Upload an image.", type=["png", "jpg"])
-
 MODEL_URL = "https://github.com/stephenllh/image-captioning-transformer/releases/latest/download/model.zip"
 download_and_unzip(MODEL_URL)
 ckpt_path = "models.ckpt"
+
+st.title("Image captioning with Transformer")
+uploaded_file = st.file_uploader("Upload an image.", type=["png", "jpg"])
 
 
 if __name__ == "__main__":
