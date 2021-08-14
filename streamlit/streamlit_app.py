@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 import streamlit as st
 from src.inference import inference
-from src.utils import download_and_unzip
+from src.get_data import download_and_unzip
 
 
 st.title("Image captioning with Transformer")
