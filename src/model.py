@@ -76,3 +76,58 @@ class ImageCaptioningModel(nn.Module):
         )
         out = self.linear(x)
         return out, None
+
+
+class MyTransformerDecoderLayer(nn.TransformerDecoderLayer):
+    def __init__(
+        self,
+        d_model,
+        nhead,
+        dim_feedforward=2048,
+        dropout=0.1,
+        activation="relu",
+        layer_norm_eps=1e-5,
+        batch_first=False,
+        device=None,
+        dtype=None,
+    ) -> None:
+        super().__init__(
+            d_model,
+            nhead,
+            dim_feedforward,
+            dropout,
+            activation,
+            layer_norm_eps,
+            batch_first,
+            device,
+            dtype,
+        )
+
+    def forward(
+        self,
+        tgt,
+        memory,
+        tgt_mask,
+        memory_mask,
+        tgt_key_padding_mask,
+        memory_key_padding_mask,
+    ):
+
+        tgt2 = self.self_attn(
+            tgt, tgt, tgt, attn_mask=tgt_mask, key_padding_mask=tgt_key_padding_mask
+        )[0]
+        tgt = tgt + self.dropout1(tgt2)
+        tgt = self.norm1(tgt)
+        tgt2, attention_weight = self.multihead_attn(
+            tgt,
+            memory,
+            memory,
+            attn_mask=memory_mask,
+            key_padding_mask=memory_key_padding_mask,
+        )
+        tgt = tgt + self.dropout2(tgt2)
+        tgt = self.norm2(tgt)
+        tgt2 = self.linear2(self.dropout(self.activation(self.linear1(tgt))))
+        tgt = tgt + self.dropout3(tgt2)
+        tgt = self.norm3(tgt)
+        return tgt, attention_weight
