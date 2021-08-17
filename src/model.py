@@ -20,7 +20,7 @@ class ImageCaptioningModel(nn.Module):
 
         # Image
         self.encoder = timm.create_model(cnn_backbone, pretrained=True)
-        for param in self.encoder.parameters():
+        for _ in self.encoder.parameters():
             self.encoder.requires_grad = False
 
         # Determine the input channel of the linear layer
