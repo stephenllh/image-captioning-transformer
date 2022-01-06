@@ -8,7 +8,7 @@ This project predicts captions for images by using a Transformer model with a pr
 <br/>
 
 <p align="center">
-  <img src="./images/architecture.png" alt="Competition image" width="300" height="450"/>
+  <img src="./images/architecture.png" alt="Competition image" width="440" height="602"/>
 </p>
 
 <br/>
