@@ -152,5 +152,4 @@ cython_debug/
 *.pth
 *.bin
 *.pyc
-*.png
 *.ckpt
